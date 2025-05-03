@@ -1,5 +1,8 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+from google import genai
+
+client = genai.Client(api_key="GEMINI_API_KEY")
 
 app = Flask(__name__)
 # Cors allows you to communicate with React on different ports
