@@ -23,6 +23,10 @@ def getInsiderTrades():
     trades = []
     options = Options()
     options.add_argument("--headless")
+    # options.add_argument("--no-sandbox")
+    # options.add_argument("--disable-dev-shm-usage")
+    # options.add_argument("--disable-gpu")
+    # options.add_argument("--remote-debugging-port=9222")
     driver = webdriver.Chrome(options=options)
 
     try:
@@ -80,4 +84,4 @@ def getInsiderTrades():
     return jsonify(trades)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

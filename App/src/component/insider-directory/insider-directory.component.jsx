@@ -4,13 +4,14 @@ import InsiderItem from '../insider-item/insider-item.component';
 import './insider-directory.styles.css'
 
 const InsiderDirectory = ({ className }) => {
+
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen(!isOpen);
     const [insiderTrades, setInsiderTrades] = useState([])
 
     const [search, setSearch] = useState('');
-
     const [keywords, setKeywords]= useState([]);
+    const [selectedSymbol, setSelectedSymbol] = useState(null);
 
     const filteredKeywords = keywords.filter(keyword =>
         keyword.toLowerCase().includes(search.toLowerCase())
@@ -22,7 +23,7 @@ const InsiderDirectory = ({ className }) => {
           const trades = res.data;
           setInsiderTrades(trades);
 
-          const symbols = [...new Set(trades.map(trade => trade.symbol))];
+          const symbols = [...new Set(trades.map(trade => trade.symbol))].sort((a,b)=> a.localeCompare(b));
           setKeywords(symbols);
       } catch (err) {
           console.error(err.response?.data || "Error fetching insider trades");
@@ -57,7 +58,16 @@ const InsiderDirectory = ({ className }) => {
                 <ul className="keyword-list">
                   {filteredKeywords.length > 0 ? (
                     filteredKeywords.map((keyword, index) => (
-                        <li key={index} className="keyword-item" onClick={() => setSearch(keyword)}> {keyword} </li>
+                      <li 
+                          key={index}
+                          className="keyword-item"
+                          onClick={() => {
+                          setIsOpen(false);
+                          setSelectedSymbol(keyword);
+                        }}
+                      > 
+                        {keyword} 
+                      </li>
                     ))
                   ) : (
                     <li className="no-results">No matches found.</li>
@@ -65,22 +75,32 @@ const InsiderDirectory = ({ className }) => {
                 </ul>
               </div>
             )}
+            {selectedSymbol && (
+              <button
+                className="clear-button"
+                onClick={() => setSelectedSymbol(null)}
+              >
+                Clear Filter ({selectedSymbol})
+              </button>
+            )}
           </div>
         </div>
 
         {/* Scrollable content */}
         <div className="scrollable-content">
-        {insiderTrades.map((item, index) => {
-          return (
-            <InsiderItem
-              key={index} // Use the incremented num as the key
-              reporter={item.reporter}
-              symbol={item.symbol}
-              value={item.value}
-              date={item.date}
-            />
-          );
-        })}
+        {insiderTrades
+          .filter(item => !selectedSymbol || item.symbol === selectedSymbol)
+          .map((item, index) => {
+            return (
+              <InsiderItem
+                key={index} // Use the incremented num as the key
+                reporter={item.reporter}
+                symbol={item.symbol}
+                value={item.value}
+                date={item.date}
+              />
+            );
+          })}
         </div>
     </div>      
   );

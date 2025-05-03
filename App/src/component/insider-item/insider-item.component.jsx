@@ -22,7 +22,6 @@ const InsiderItem = ( { reporter, symbol,  value, date } ) => {
             </div>
         </div>
     )
-
 }
 
 export default InsiderItem
