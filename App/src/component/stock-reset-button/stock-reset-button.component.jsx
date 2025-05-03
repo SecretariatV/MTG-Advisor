@@ -1,9 +1,11 @@
 import './stock-reset-button.styles.css'
+import Button from '@mui/material/Button';
 
 const StockResetButton = ({ onClick, placeHolder}) => {
 
     return (
-        <button onClick={onClick} className="reset-button">{placeHolder}</button>
+        <Button className="reset-button" variant="contained" onClick={ onClick }>{ placeHolder }</Button>
+        // <button onClick={onClick} className="reset-button">{placeHolder}</button>
     )
 
 }

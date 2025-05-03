@@ -5,11 +5,38 @@
     padding: 8px 12px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    margin: 8px;
+    margin: 12px;
     flex:1;
 }
 
 .cell{
     flex: 1;
     align-items: center;
+}
+
+#openPrice,
+#closePrice,
+#name,
+#date{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+#openPrice p,
+#closePrice p,
+#name p,
+#date p{
+    margin:0px;
+}
+
+#openPrice h3,
+#closePrice h3,
+#name h3,
+#date h3{
+    margin:0px;
+    text-decoration: underline;
+    font-style: italic;
+    font-size: 24px;
 }

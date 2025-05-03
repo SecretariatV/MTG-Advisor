@@ -4,9 +4,8 @@ button{
 }
 
 .reset-button{
-    margin:8px;
-    padding:8px;
-    flex:1;
+    padding: 10px;
+    flex: 1;
     font-size: 16px;
     height: 75px;
 }

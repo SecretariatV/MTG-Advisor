@@ -42,8 +42,8 @@ const StockDirectory = ( { className }) => {
                 />
             ))}
             <div className="button-container">
-                <StockResetButton onClick={fetchRecentStockData} placeHolder={"Get most recent stock prices"}/>
-                <StockResetButton onClick={fetchInsiderStockData} placeHolder={"Get stock prices associated to insider trades"}/>
+                <StockResetButton onClick={fetchRecentStockData} placeHolder={"Recent Prices"}/>
+                <StockResetButton onClick={fetchInsiderStockData} placeHolder={"Insider Trades"}/>
             </div>
         </div>
     )

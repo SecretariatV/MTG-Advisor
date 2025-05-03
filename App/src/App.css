@@ -1,12 +1,14 @@
 .parent-container {
   display: flex;
   flex-direction: row;
-  height: 100vh;       /* Full viewport height */
+  height: 98vh;
 }
 
 .container {
   flex: 1; /* equal width */
-  border: 1px solid #ccc; /* optional, for visibility */
+  border: 3px solid #c2d4d2; /* optional, for visibility */
   padding: 16px;
   box-sizing: border-box;
+  margin: 8px;
+  border-radius: 10px;
 }
