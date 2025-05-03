@@ -6,8 +6,7 @@
 }
 
 .insider-header {
-    margin: 0;
-    font-size:24px;
+    color: #416dfe;
 }
 
 .insider-button {
@@ -70,18 +69,21 @@
 }
 
 .keyword-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 8px;
-    max-height: 150px;
+    max-height: 150px;     /* Adjust as needed */
     overflow-y: auto;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid #ccc;
 }
+  
   
 .keyword-item {
     padding: 6px;
     cursor: pointer;
     border-radius: 4px;
     background-color: #0056b3;
+    margin: 2px;
 }
   
 .keyword-item:hover {

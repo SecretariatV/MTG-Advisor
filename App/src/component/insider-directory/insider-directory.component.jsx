@@ -7,7 +7,7 @@ const InsiderDirectory = ({ className }) => {
 
     const [search, setSearch] = useState('');
     
-    const keywords = ['APPL', 'NVIDA', 'AMZN'];
+    const keywords = ['APPL', 'NVIDA', 'AMZN', 'NASTAQ'];
 
     const filteredKeywords = keywords.filter(keyword =>
         keyword.toLowerCase().includes(search.toLowerCase())
