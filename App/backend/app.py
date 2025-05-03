@@ -17,5 +17,8 @@ CORS(app)
 def get_message():
     return jsonify({"message": "Hello from Flask!"})
 
+def greetings():
+    return "Hello"
+
 if __name__ == '__main__':
     app.run(debug=True)
