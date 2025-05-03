@@ -1,9 +1,9 @@
 import './insider-directory.styles.css'
 
-const InsiderDirectory = () => {
+const InsiderDirectory = ( { className }) => {
 
     return (
-        <div className="insider-parent">
+        <div className={className}>
             <p>This is the Insider</p>
         </div>
     )
