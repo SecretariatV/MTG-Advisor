@@ -1,0 +1,15 @@
+.row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin: 8px;
+    flex:1;
+}
+
+.cell{
+    flex: 1;
+    align-items: center;
+}
