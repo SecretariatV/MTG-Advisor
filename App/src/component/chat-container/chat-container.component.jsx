@@ -1,11 +1,19 @@
 import './chat-container.styles.css'
-import {useState} from "react"
+import {useState, useRef, useEffect} from "react"
 import ChatInputBox from '../chat-inputbox/chat-inputbox.component'
 import ChatMessageBox from '../chat-messagebox/chat-messagebox.component'
 import axios from "axios"
 
 const ChatContainer = ( {className}) => {
     const [messages, setMessages] = useState([]);
+    const messagesEndRef = useRef(null);
+
+    useEffect(() => {
+        // Auto-scroll to bottom when messages update
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     const handleSend = async (inputText) => {
         if (!inputText.trim()) return;
@@ -28,7 +36,7 @@ const ChatContainer = ( {className}) => {
         <header className="chat-header">
             <h1>Insider Trading Advisor</h1>
         </header>
-        <ChatMessageBox messages={messages} />
+        <ChatMessageBox messages={messages} ref={messagesEndRef}/>
         <ChatInputBox onSend={handleSend} />
         </div>
     );
