@@ -8,8 +8,7 @@ import axios from "axios";
 const StockDirectory = ( { className }) => {
 
     const fetchRecentStockData = async () => {
-        const tickers = ["AAPL", "MSFT", "GOOG", "NVDA"];
-      
+        const tickers = ["AAPL", "MSFT", "GOOG", "NVDA", "INTC"];
         try {
           const res = await axios.post("http://localhost:5001/api/stock-data", {
             tickers,
@@ -21,11 +20,21 @@ const StockDirectory = ( { className }) => {
     };
 
     const fetchInsiderStockData = async () => {
-        console.log("To be implemented")
-    }
 
+        const tickers = ["BITB", "BTC", "AAPL", "AMCR", "GOOG"];
+        const dates = ["4/8/2025", "4/23/2025", "4/7/2025", "4/7/2025", "4/7/2025"]
+        try {
+          const res = await axios.post("http://localhost:5001/api/get-single-stock", {
+            tickers,dates,
+          });
+          setStockData(res.data)
+        } catch (err) {
+          console.error(err.response?.data || "Error fetching stock data");
+        }
+    }
+    
     useEffect(() => {
-        fetchRecentStockData()
+        fetchInsiderStockData()
     }, [])
 
     const [stockData, setStockData] = useState([])

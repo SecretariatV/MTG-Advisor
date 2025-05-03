@@ -31,10 +31,8 @@ def fetch_and_return_stock_data():
     body = request.get_json()
     tickers = body.get("tickers", [])
 
-    if not tickers:
-        return jsonify({"error": "No tickers provided"}), 400
-
     date = get_last_trading_day()
+    print(date)
     grouped = client.get_grouped_daily_aggs(date)
     data = []
 
@@ -52,6 +50,42 @@ def fetch_and_return_stock_data():
         return jsonify(data)
     else:
         return jsonify({"error": "No data found for given tickers"}), 404
+    
+@app.route("/api/get-single-stock", methods=["POST"])
+def getSingle():
+    body = request.get_json()
+    tickers = body.get("tickers", [])
+    dates = body.get("dates", [])
+    results = []
+
+    # Convert dates to the correct format (YYYY-MM-DD)
+    for i in range(len(dates)):
+        dt = datetime.strptime(dates[i], "%m/%d/%Y")
+        dates[i] = dt.date().isoformat()  # Use .date() to remove the time portion
+        print(dates[i])  # Debugging: Print the formatted date
+
+    # Fetch data for each ticker and date
+    for ticker, date in zip(tickers, dates):
+        try:
+            bars = client.get_aggs(ticker, 1, "day", date, date)
+            print(f"Bars for {ticker} on {date}: {bars}")  # Debugging: Print the bars
+            if bars:
+                bar = bars[0]
+                results.append({
+                    "Ticker": ticker,
+                    "Open": bar.open,
+                    "Close": bar.close,
+                    "Date": date
+                })
+        except Exception as e:
+            print(f"Error fetching data for Ticker: {ticker}, Date: {date} - {e}")
+
+    if results:
+        return jsonify(results)
+    else:
+        return jsonify({"error": "No data found for given tickers and dates"}), 404
+
+
 
 if __name__ == "__main__":
     app.run(port=5001, debug=True)

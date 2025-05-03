@@ -10,6 +10,7 @@ const InsiderDirectory = ({ className }) => {
     const [insiderTrades, setInsiderTrades] = useState([])
 
     const [search, setSearch] = useState('');
+    
     const [keywords, setKeywords]= useState([]);
     const [selectedSymbol, setSelectedSymbol] = useState(null);
 
@@ -20,6 +21,7 @@ const InsiderDirectory = ({ className }) => {
     const getInsiderTrades = async () => {
       try {
           const res = await axios.post("http://localhost:5000/api/getInsiderTrades");
+          setInsiderTrades(res.data);
           const trades = res.data;
           setInsiderTrades(trades);
 

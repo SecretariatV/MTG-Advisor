@@ -14,12 +14,11 @@ CORS(app,
      allow_headers=["Content-Type"])
 
 @app.route("/api/getInsiderTrades", methods=["POST", "OPTIONS"])
+@app.route("/api/getInsiderTrades", methods=["POST", "OPTIONS"])
 def getInsiderTrades():
-
     if request.method == "OPTIONS":
-        # Preflight request—just return 200 with CORS headers
-        return '', 200
-    # 1. Configure headless Chrome
+        return "", 200
+
     trades = []
     options = Options()
     options.add_argument("--headless")
@@ -30,58 +29,70 @@ def getInsiderTrades():
     driver = webdriver.Chrome(options=options)
 
     try:
-        # 2. Load the page and wait for JS-rendered table
         driver.get("https://unusualwhales.com/politics")
-        # wait until table appears (up to 10s)
         end_time = time.time() + 10
         while time.time() < end_time:
             if driver.find_elements(By.CSS_SELECTOR, "table.w-full tbody tr"):
                 break
             time.sleep(0.5)
 
-        # 3. Grab the rendered HTML and parse with BeautifulSoup
-        soup = BeautifulSoup(driver.page_source, "html.parser")
-
-        # 4. Find every row in the target table
-        rows = soup.select("table.w-full tbody tr.hover\\:bg-\\[var\\(--hover-bg-color\\)\\]")
+        soup  = BeautifulSoup(driver.page_source, "html.parser")
+        table = soup.find("table", class_="w-full")
+        rows  = table.select("tbody tr")
 
         for row in rows:
+            if "hover:bg-[var(--hover-bg-color)]" not in row.get("class", []):
+                continue
+
             cols = row.find_all("td")
 
-            # Reporter: link text in first <td>
-            reporter = cols[0].find("a").get_text(strip=True)
-
-            # Symbol: only if there's an <a> in the second <td>
-            symbol_tag = cols[1].find("a")
-            if symbol_tag:
-                symbol = symbol_tag.get_text(strip=True) 
-            else:
+            # only process stock trades: span must start with "stock"
+            type_span = cols[1].find("span", class_="text-sm")
+            if not type_span or not type_span.get_text(strip=True).lower().startswith("stock"):
                 continue
-        
 
-            # Date: text of third <td>
+            # now you know it's a stock, so symbol link will exist
+            reporter = cols[0].find("a").get_text(strip=True)
+            symbol_tag = cols[1].find("a")
+            if not symbol_tag:
+                continue
+            symbol = symbol_tag.get_text(strip=True)
+
             date = cols[2].get_text(strip=True)
 
-            # Value: second <span> inside the fourth <td>
-            spans = cols[3].find_all("span")
-            value = spans[1].get_text(strip=True) if len(spans) > 1 else None
+            # extract transaction, value, executed as before
+            outer       = cols[3].find("div")
+            detail_div, exec_div = outer.find_all("div", recursive=False)
+            spans       = detail_div.find_all("span")
+            transaction = spans[0].get_text(strip=True)
+            value       = spans[1].get_text(strip=True)
+            executed    = exec_div.get_text(strip=True).replace("executed:", "").strip()
 
             trades.append({
-                "reporter": reporter,
-                "symbol": symbol,
-                "date": date,
-                "value": value
+                "reporter":    reporter,
+                "symbol":      symbol,
+                "date":        date,
+                "transaction": transaction,
+                "value":       value,
+                "executed":    executed
             })
 
-        # 5. Print results
-        for t in trades:
-            print(f"{t['date']} – {t['reporter']} – {t['symbol'] or '(non-stock)'} – {t['value']}")
-    except Exception as e:
-        print(f"Error: {e}")
+        # Debug
+        # for trade in trades:
+        #     print(
+        #         f"Date:        {trade['date']}\n"
+        #         f"Reporter:    {trade['reporter']}\n"
+        #         f"Symbol:      {trade['symbol']}\n"
+        #         f"Transaction: {trade['transaction']}\n"
+        #         f"Value:       {trade['value']}\n"
+        #         f"Executed:    {trade['executed']}\n\n"
+        #     )
+
     finally:
         driver.quit()
-    
+
     return jsonify(trades)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
