@@ -1,5 +1,6 @@
 // import { useEffect, useState } from 'react';
 // import axios from 'axios';
+import Punk from "./components/Punk/Punk.component";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
   return (
     <>
       <p>Stonks</p>
+      <Punk/>
     </>
   );
 }
