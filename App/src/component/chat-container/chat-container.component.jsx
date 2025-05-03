@@ -22,7 +22,7 @@ const ChatContainer = ( {className}) => {
         setMessages(updatedMessages);
 
         try{
-            const res = await axios.post("http://localhost:5000/gemini", { message: inputText});
+            const res = await axios.post("http://localhost:5002/gemini", { message: inputText});
             setMessages([...updatedMessages, {sender: "bot", text: res.data.response}]);
         }
         catch (err){

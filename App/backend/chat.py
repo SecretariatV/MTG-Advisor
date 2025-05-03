@@ -13,8 +13,10 @@ load_dotenv()
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=gemini_api_key)
 
-@app.route('/gemini')
+@chat.route('/gemini', methods=['POST'])
 def communication():
+    data = request.get_json()
+    user_message = data.get("message", "")
     aiChat = client.chats.create(
         model="gemini-2.0-flash",
         config = types.GenerateContentConfig(
@@ -25,11 +27,14 @@ def communication():
         )
     )
 
-    response = aiChat.send_message_stream()
+    response = aiChat.send_message_stream(user_message)
+    full_response = ""
     for chunk in response:
-        print(chunk.text, end="")
+        full_response += chunk.text
+    # print(full_response)
+    return jsonify({"response": full_response})
 
 
 if __name__ == '__main__':
-    chat.run(debug=True)
-    print("Hello World!")
+    chat.run(port=5002,debug=True)
+    
