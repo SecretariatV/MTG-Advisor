@@ -11,7 +11,7 @@ const StockDirectory = ( { className }) => {
         const tickers = ["AAPL", "MSFT", "GOOG", "NVDA"];
       
         try {
-          const res = await axios.post("http://localhost:5000/api/stock-data", {
+          const res = await axios.post("http://localhost:5001/api/stock-data", {
             tickers,
           });
           setStockData(res.data)

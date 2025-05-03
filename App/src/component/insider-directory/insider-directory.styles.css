@@ -1,8 +1,13 @@
 .insider-header-row {
     display: flex;
     gap: 12px;
-    align-items: center;       /* vertically center items in the row */
-    justify-content: center;   /* horizontally center the row contents */
+    align-items: center;
+    justify-content: center;
+    position: sticky; /* Keeps the header at the top */
+    top: 0; /* Sticks to the top of the parent container */
+    background-color: white; /* Ensures the header has a background */
+    z-index: 10; /* Ensures the header stays above the scrollable content */
+    padding: 8px 0;
 }
 
 .insider-header {
@@ -108,3 +113,8 @@
     z-index: 10;
     margin-top: 4px;
 }  
+
+.scrollable-content {
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding: 8px; /* Optional: Adds padding inside the scrollable area */
+}

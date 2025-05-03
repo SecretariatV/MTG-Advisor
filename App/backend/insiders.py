@@ -1,47 +1,83 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from bs4 import BeautifulSoup
+from datetime import datetime
+import time
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, 
+     resources={r"/api/*": {"origins": "http://localhost:5173"}},
+     methods=["OPTIONS", "POST", "GET"],
+     allow_headers=["Content-Type"])
 
-@app.route("/")
-def scrape_congress_trades():
-    options = Options()
-    options.headless = True
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
+@app.route("/api/getInsiderTrades", methods=["POST", "OPTIONS"])
+def getInsiderTrades():
 
-    # If using Chromium instead of Google Chrome, uncomment:
-    options.binary_location = "/usr/bin/chromium-browser"
-
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    driver.get("https://unusualwhales.com/politics")
-
-    # Wait for data (use implicit wait or better: WebDriverWait)
-    driver.implicitly_wait(10)
-
+    if request.method == "OPTIONS":
+        # Preflight request—just return 200 with CORS headers
+        return '', 200
+    # 1. Configure headless Chrome
     trades = []
-    rows = driver.find_elements(By.CSS_SELECTOR, "table tbody tr")
-    for row in rows:
-        cols = row.find_elements(By.TAG_NAME, "td")
-        if len(cols) >= 4:
-            trade = {
-                "senator": cols[0].text.strip(),
-                "company": cols[1].text.strip(),
-                "amount": cols[2].text.strip(),
-                "date": cols[3].text.strip()
-            }
-            trades.append(trade)
+    options = Options()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
 
-    driver.quit()
-    print(trades)
-    return 'hi'
+    try:
+        # 2. Load the page and wait for JS-rendered table
+        driver.get("https://unusualwhales.com/politics")
+        # wait until table appears (up to 10s)
+        end_time = time.time() + 10
+        while time.time() < end_time:
+            if driver.find_elements(By.CSS_SELECTOR, "table.w-full tbody tr"):
+                break
+            time.sleep(0.5)
+
+        # 3. Grab the rendered HTML and parse with BeautifulSoup
+        soup = BeautifulSoup(driver.page_source, "html.parser")
+
+        # 4. Find every row in the target table
+        rows = soup.select("table.w-full tbody tr.hover\\:bg-\\[var\\(--hover-bg-color\\)\\]")
+
+        for row in rows:
+            cols = row.find_all("td")
+
+            # Reporter: link text in first <td>
+            reporter = cols[0].find("a").get_text(strip=True)
+
+            # Symbol: only if there's an <a> in the second <td>
+            symbol_tag = cols[1].find("a")
+            if symbol_tag:
+                symbol = symbol_tag.get_text(strip=True) 
+            else:
+                continue
+        
+
+            # Date: text of third <td>
+            date = cols[2].get_text(strip=True)
+
+            # Value: second <span> inside the fourth <td>
+            spans = cols[3].find_all("span")
+            value = spans[1].get_text(strip=True) if len(spans) > 1 else None
+
+            trades.append({
+                "reporter": reporter,
+                "symbol": symbol,
+                "date": date,
+                "value": value
+            })
+
+        # 5. Print results
+        for t in trades:
+            print(f"{t['date']} – {t['reporter']} – {t['symbol'] or '(non-stock)'} – {t['value']}")
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        driver.quit()
+    
+    return jsonify(trades)
 
 if __name__ == "__main__":
     app.run(debug=True)

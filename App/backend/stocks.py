@@ -54,4 +54,4 @@ def fetch_and_return_stock_data():
         return jsonify({"error": "No data found for given tickers"}), 404
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5001, debug=True)
