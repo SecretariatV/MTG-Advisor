@@ -6,8 +6,9 @@ import os
 
 load_dotenv()
 gemini_api_key = os.getenv("GEMINI_API_KEY")
-
 client = genai.Client(api_key=gemini_api_key)
+
+
 
 app = Flask(__name__)
 # Cors allows you to communicate with React on different ports
