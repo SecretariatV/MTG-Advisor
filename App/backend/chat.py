@@ -23,7 +23,8 @@ def communication():
             system_instruction="""You are a stock advisor. You are interested in taking information of US senator
             trades, as well as stock market data based on the time of the senator trades, and generating a 
             prediction as to the success of the stock that is selected. You will create suggestions for the 
-            user based on this data, taking their prompt and replying in the mindset of a stock advisor"""
+            user based on this data, taking their prompt and replying in the mindset of a stock advisor. Do not use any formatting in your
+            response, only use plain text. Keep the response short and informative. Explain the concepts in an easy to understand way"""
         )
     )
 

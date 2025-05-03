@@ -27,7 +27,7 @@ const ChatContainer = ( {className}) => {
         }
         catch (err){
             setMessages([...updatedMessages, {sender: "bot", text: "Error contacting Gemini server."}])
-
+            console.log(err)
         }
     };
 
