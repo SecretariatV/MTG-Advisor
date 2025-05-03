@@ -1,0 +1,108 @@
+.insider-header-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;       /* vertically center items in the row */
+    justify-content: center;   /* horizontally center the row contents */
+}
+
+.insider-header {
+    margin: 0;
+    font-size:24px;
+}
+
+.insider-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.insider-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}  
+
+.funnel-icon {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid white;  /* Funnel wide part */
+    position: relative;
+    margin-right: 6px;
+    margin-top: 2px;
+}
+
+.funnel-icon::after {
+    content: ""; /* creates an empty element */
+    position: absolute;
+    top: -4px;
+    left: -2.5px;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 6px solid white; /* funnel neck part */
+}
+
+.dropdown-menu {
+    margin-top: 8px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.dropdown-search {
+    padding: 6px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.keyword-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+  
+.keyword-item {
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #0056b3;
+}
+  
+.keyword-item:hover {
+    background-color: #007bff;
+}
+  
+.no-results {
+    color: #888;
+    font-style: italic;
+    padding: 6px;
+}
+  
+.filter-container {
+    position: relative;
+    display: inline-block;
+}
+  
+.dropdown-menu.align-left {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    margin-top: 4px;
+}  
