@@ -1,0 +1,18 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;           /* Take full screen height */
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+.chat-header {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #416dfe;
+    outline: #ff0000
+    outline-width: 
+  }
+  

@@ -1,0 +1,37 @@
+import './chat-container.styles.css'
+import {useState} from "react"
+import ChatInputBox from '../chat-inputbox/chat-inputbox.component'
+import ChatMessageBox from '../chat-messagebox/chat-messagebox.component'
+import axios from "axios"
+
+const ChatContainer = ( {className}) => {
+    const [messages, setMessages] = useState([]);
+
+    const handleSend = async (inputText) => {
+        if (!inputText.trim()) return;
+
+        const updatedMessages = [...messages, { sender: 'user', text: inputText}];
+        setMessages(updatedMessages);
+
+        try{
+            const res = await axios.post("http://localhost:5173/", { message: inputText});
+            setMessages([...updatedMessages, {sender: "bot", text: res.data.response}]);
+        }
+        catch (err){
+            setMessages([...updatedMessages, {sender: "bot", text: "Error contacting Gemini server."}])
+
+        }
+    };
+
+    return (
+        <div className={`chat-container ${className}`}>
+        <header className="chat-header">
+            <h1>Insider Trading Advisor</h1>
+        </header>
+        <ChatMessageBox messages={messages} />
+        <ChatInputBox onSend={handleSend} />
+        </div>
+    );
+};
+
+export default ChatContainer;

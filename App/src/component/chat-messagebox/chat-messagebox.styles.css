@@ -1,0 +1,9 @@
+.chat-message-box {
+    flex-grow: 1;                   /* Fills remaining space above input */
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding-right: 0.5rem;
+    display: flex;
+    flex-direction: column;         /* Ensures top-to-bottom message flow */
+  }
+  

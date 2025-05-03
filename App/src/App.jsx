@@ -1,7 +1,7 @@
 // import { useEffect, useState } from 'react';
 // import axios from 'axios';
 
-import ChatContainer from "./component/chat-container/chat-container.comoponent";
+import ChatContainer from "./component/chat-container/chat-container.component";
 import StockDirectory from "./component/stock-directory/stock-directory.component";
 import InsiderDirectory from "./component/insider-directory/insider-directory.component"
 import "./App.css"
