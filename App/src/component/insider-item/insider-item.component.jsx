@@ -7,7 +7,7 @@ const InsiderItem = ( { reporter, symbol,  value, date } ) => {
             <div className='cell' id='name'>
                 <h3>Reporter</h3>
                 <p>{reporter}</p>
-                </div>
+            </div>
             <div className='cell' id='openPrice'>
                 <h3>Symbol</h3> 
                 <p>{symbol}</p>

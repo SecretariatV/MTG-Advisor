@@ -9,8 +9,8 @@ const InsiderDirectory = ({ className }) => {
     const [insiderTrades, setInsiderTrades] = useState([])
 
     const [search, setSearch] = useState('');
-    
-    const keywords = ['APPL', 'NVIDA', 'AMZN', 'NASTAQ'];
+
+    const [keywords, setKeywords]= useState([]);
 
     const filteredKeywords = keywords.filter(keyword =>
         keyword.toLowerCase().includes(search.toLowerCase())
@@ -19,7 +19,11 @@ const InsiderDirectory = ({ className }) => {
     const getInsiderTrades = async () => {
       try {
           const res = await axios.post("http://localhost:5000/api/getInsiderTrades");
-          setInsiderTrades(res.data);
+          const trades = res.data;
+          setInsiderTrades(trades);
+
+          const symbols = [...new Set(trades.map(trade => trade.symbol))];
+          setKeywords(symbols);
       } catch (err) {
           console.error(err.response?.data || "Error fetching insider trades");
           alert("Failed to fetch insider trades. Please try again later.");
