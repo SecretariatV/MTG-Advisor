@@ -12,10 +12,6 @@ load_dotenv()
 API_KEY = os.getenv("POLYGON_API_KEY")
 client = RESTClient(API_KEY)
 
-'''
-Calculates the most recent trading day to get data for,
-This will likely be replaced by extracting data from the webscraping for the date
-'''
 def get_last_trading_day():
     today = datetime.now(timezone.utc).date()
     offset = 1
@@ -24,6 +20,19 @@ def get_last_trading_day():
         if day.weekday() < 5:
             return str(day)
         offset += 1
+
+def get_nearest_weekday(date_str):
+    """
+    Takes a date in the format YYYY-MM-DD and ensures it is not a weekend.
+    If it is, go back to the nearest weekday.
+    """
+    date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    
+    # Check if the date is a weekend (Saturday=5, Sunday=6)
+    while date.weekday() >= 5:  # 5 = Saturday, 6 = Sunday
+        date -= timedelta(days=1)  # Go back one day
+    
+    return date.isoformat()  # Return the adjusted date as a string
 
 @app.route("/api/stock-data", methods=["POST"])
 def fetch_and_return_stock_data():
@@ -61,7 +70,7 @@ def getSingle():
     # Convert dates to the correct format (YYYY-MM-DD)
     for i in range(len(dates)):
         dt = datetime.strptime(dates[i], "%m/%d/%Y")
-        dates[i] = dt.date().isoformat()  # Use .date() to remove the time portion
+        dates[i] = get_nearest_weekday(dt.date().isoformat())  # Use .date() to remove the time portion
         # print(dates[i])  # Debugging: Print the formatted date
 
     # Fetch data for each ticker and date

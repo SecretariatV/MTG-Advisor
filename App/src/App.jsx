@@ -11,35 +11,30 @@ function App() {
   const [stockData, setStockData] = useState([])
   const [insiderTrades, setInsiderTrades] = useState([])
   const [keywords, setKeywords]= useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [filteredKeywords, setFilteredKeywords] = useState([])
   let tickers = []
   let dates = []
 
-  const getTickers = () => {
-    tickers = insiderTrades.slice(0, Math.min(5, insiderTrades.length)).map(trade => trade.symbol);
-  }
-
-  const getDates = () => {
-    dates = insiderTrades.slice(0,Math.min(5,insiderTrades.length)).map(trade => trade.date)
-  }
-
-
-
+  
   const fetchRecentStockData = async () => {
-    getTickers()
+    getUniqueTickers()
     try {
       const res = await axios.post("http://localhost:5001/api/stock-data", {
         tickers,
       });
-        setStockData(res.data)
-      } catch (err) {
-        console.error(err.response?.data || "Error fetching stock data");
-      }
+      setStockData(res.data)
+    } catch (err) {
+      console.error(err.response?.data || "Error fetching stock data");
+    }
   };
-
+  
+  /**
+   * Populates the tickers and dates array with data corresponding to the
+   * insiderTrades values
+   */
   const fetchInsiderStockData = async () => {
     getTickers()
-    getDates()
     try {
       const res = await axios.post("http://localhost:5001/api/get-single-stock", {
         tickers,dates,
@@ -48,29 +43,58 @@ function App() {
     } catch (err) {
       console.error(err.response?.data || "Error fetching stock data");
     }
-  }
+  };
+  
+  const getTickers = () => {
+    const uniqueEntries = new Set();
+    tickers = [];
+    dates = [];
+  
+    for (const trade of insiderTrades) {
+      const key = `${trade.symbol}-${trade.executed}`; // Combine symbol and date as a unique key
+      if (!uniqueEntries.has(key)) {
+        uniqueEntries.add(key);
+        tickers.push(trade.symbol);
+        dates.push(trade.executed);
+      }
+      if (tickers.length === 5) break; // Stop once we have 5 unique entries
+    }
 
-  fetchInsiderStockData()
+    console.log(tickers)
+    console.log(dates)
+  };
 
+  const getUniqueTickers = () => {
+    const uniqueSymbols = new Set();
+    tickers = []
+  
+    for (const trade of insiderTrades) {
+      if (!uniqueSymbols.has(trade.symbol)) {
+        uniqueSymbols.add(trade.symbol);
+        tickers.push(trade.symbol);
+      }
+      if (tickers.length === 5) break; // Stop once we have 5 unique symbols
+    }
+  };
+  
   const getInsiderTrades = async () => {
     try {
-        const res = await axios.post("http://localhost:5000/api/getInsiderTrades");
-        setInsiderTrades(res.data);
-        const trades = res.data;
-        setInsiderTrades(trades);
-
-        const symbols = [...new Set(trades.map(trade => trade.symbol))].sort((a,b)=> a.localeCompare(b));
-        setKeywords(symbols);
+      const res = await axios.post("http://localhost:5000/api/getInsiderTrades");
+      setInsiderTrades(res.data);
+      const trades = res.data;
+      setInsiderTrades(trades);
+      
+      const symbols = [...new Set(trades.map(trade => trade.symbol))].sort((a,b)=> a.localeCompare(b));
+      setKeywords(symbols);
     } catch (err) {
-        console.error(err.response?.data || "Error fetching insider trades");
-        alert("Failed to fetch insider trades. Please try again later.");
+      console.error(err.response?.data || "Error fetching insider trades");
+      alert("Failed to fetch insider trades. Please try again later.");
     }
-};
-
+  };
+  
   useEffect(() => {
-    getInsiderTrades()
+    getInsiderTrades();
   }, [])
-
 
   return (
     <>
