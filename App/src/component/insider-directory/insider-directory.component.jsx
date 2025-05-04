@@ -17,7 +17,7 @@ const InsiderDirectory = ({ className, insiderTrades, keywords, setFilteredKeywo
     return (
     <div className={className}>
         <div className="insider-header-row">
-          <h1 className="insider-header">Insider</h1>
+          <h1 className="insider-header">Insider Trades</h1>
       
           <div className="filter-container"> {/* Wrapper for positioning */}
             <button className="insider-button" onClick={toggleDropdown}>
@@ -81,6 +81,8 @@ const InsiderDirectory = ({ className, insiderTrades, keywords, setFilteredKeywo
                 symbol={item.symbol}
                 value={item.value}
                 date={item.date}
+                transaction={item.transaction}
+                executed={item.executed}
               />
             );
           })}

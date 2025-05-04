@@ -1,27 +1,40 @@
 import './insider-item.styles.css'
 
-const InsiderItem = ( { reporter, symbol,  value, date } ) => {
+const InsiderItem = ( { reporter, symbol,  date, value, transaction, executed } ) => {
 
     return (
-        <div className="row2">
-            <div className='cell' id='name'>
-                <h3>Reporter</h3>
-                <p>{reporter}</p>
+        <div className="insider-row">
+            <div className="cell-container">
+                <div className='insider-cell' id='name'>
+                    <h3>Reporter</h3>
+                    <p>{reporter}</p>
+                </div>
+                <div className='insider-cell' id='openPrice'>
+                    <h3>Symbol</h3> 
+                    <p>{symbol}</p>
+                </div>
+                <div className='insider-cell' id='date'>
+                    <h3>Date Executed</h3>
+                    <p>{executed}</p>
+                </div>
             </div>
-            <div className='cell' id='openPrice'>
-                <h3>Symbol</h3> 
-                <p>{symbol}</p>
-            </div>
-            <div className='cell' id='closePrice'>
-                <h3>Value</h3> 
-                <p>{value}</p>
-            </div>
-            <div className='cell' id='date'>
-                <h3>Date</h3>
-                <p>{date}</p>
+            <div className="cell-container">
+                <div className='insider-cell' id='date'>
+                    <h3>Transaction</h3>
+                    <p>{transaction}</p>
+                </div>
+                <div className='insider-cell' id='closePrice'>
+                    <h3>Value</h3> 
+                    <p>{value}</p>
+                </div>
+                <div className='insider-cell' id='date'>
+                    <h3>Filing Date</h3>
+                    <p>{date}</p>
+                </div>
             </div>
         </div>
     )
+
 }
 
 export default InsiderItem

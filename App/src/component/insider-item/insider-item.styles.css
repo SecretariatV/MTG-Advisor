@@ -1,8 +1,9 @@
-.row2{
+.insider-row{
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 8px 12px;
+    justify-content: center;
+    padding: 12px;
+    gap:24px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     margin: 12px;
@@ -10,9 +11,10 @@
     min-height:125px;
 }
 
-.cell{
-    flex: 1;
-    align-items: center;
+
+.cell-container{
+    display: flex;
+    flex-direction: column;
 }
 
 #openPrice,
@@ -30,6 +32,7 @@
 #name p,
 #date p{
     margin:0px;
+    padding:4px;
 }
 
 #openPrice h3,
@@ -39,5 +42,6 @@
     margin:0px;
     text-decoration: underline;
     font-style: italic;
-    font-size: 20px;
+    font-size: 16px;
+    padding:4px;
 }
