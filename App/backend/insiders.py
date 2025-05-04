@@ -14,7 +14,6 @@ CORS(app,
      allow_headers=["Content-Type"])
 
 @app.route("/api/getInsiderTrades", methods=["POST", "OPTIONS"])
-@app.route("/api/getInsiderTrades", methods=["POST", "OPTIONS"])
 def getInsiderTrades():
     if request.method == "OPTIONS":
         return "", 200
@@ -22,10 +21,10 @@ def getInsiderTrades():
     trades = []
     options = Options()
     options.add_argument("--headless")
-    # options.add_argument("--no-sandbox")
-    # options.add_argument("--disable-dev-shm-usage")
-    # options.add_argument("--disable-gpu")
-    # options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--remote-debugging-port=9222")
     driver = webdriver.Chrome(options=options)
 
     try:

@@ -118,6 +118,7 @@
     left: 0;
     z-index: 10;
     margin-top: 4px;
+    background-color: #000;
 }  
 
 .scrollable-content {
