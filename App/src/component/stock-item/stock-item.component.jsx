@@ -3,6 +3,7 @@ import './stock-item.styles.css';
 
 const StockItem = ({ name, openPrice, closePrice, date }) => {
   const closePriceClass = closePrice > openPrice ? 'green-bg' : 'red-bg';
+  const formattedDate = date.replaceAll('-', '/');
 
   return (
     <div className="row">
@@ -20,7 +21,7 @@ const StockItem = ({ name, openPrice, closePrice, date }) => {
       </div>
       <div className='cell' id='date'>
         <h3>Date</h3>
-        <p>{date}</p>
+        <p>{formattedDate}</p>
       </div>
     </div>
   );

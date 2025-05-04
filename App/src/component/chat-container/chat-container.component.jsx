@@ -5,7 +5,7 @@ import ChatMessageBox from '../chat-messagebox/chat-messagebox.component'
 import axios from "axios"
 
 const ChatContainer = ({ className, insiderTrades, stockData }) => {
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState([{sender: 'bot', text: "Hey, how can I help you?"}]);
     const [loading, setLoading] = useState(false); // Track loading state
     const messagesEndRef = useRef(null);
 

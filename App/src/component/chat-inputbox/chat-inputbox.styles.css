@@ -1,20 +1,33 @@
 .chat-input-box {
     display: flex;
     gap: 0.5rem;
-  }
-  
-  .chat-input-box input {
+    align-items: flex-start; /* Align items at the top to prevent button resizing */
+}
+
+.chat-input-box textarea {
     flex-grow: 1;
-    padding: 0.5rem;
-    border-radius: 1rem 1rem 1rem 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
     border: 2px solid #4f4949;
-  }
-  
-  .chat-input-box button {
-    padding: 0.5rem 1rem;
-    border-radius: 1rem 1rem 1rem 1rem;
-    border: 2px solid #4f4949;
-    background-color: #007bff ;
-    color: white;
-  }
-  
+    resize: none; /* Prevent manual resizing */
+    overflow-y: auto; /* Allow vertical scrolling when max-height is reached */
+    max-height: 125px; /* Maximum height before scrolling */
+    min-height: 40px; /* Initial height */
+    line-height: 2; /* Adjust line spacing */
+    box-sizing: border-box; /* Include padding and border in height calculations */
+    word-wrap: break-word; /* Ensure long words wrap to the next line */
+    overflow-wrap: break-word; /* Break long words to prevent overflow */
+}
+
+.chat-input-box button {
+  padding: 1rem 1rem;
+  border-radius: 1rem;
+  border: 2px solid #4f4949;
+  background-color: #007bff;
+  color: white;
+  flex-shrink: 0; /* Prevent the button from growing */
+  height: auto; /* Ensure the button height remains consistent */
+  align-self: center; 
+  margin-top: auto;
+  margin-bottom: 4px;
+}

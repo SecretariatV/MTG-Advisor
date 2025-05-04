@@ -25,9 +25,10 @@ def communication():
             prediction as to the success of the stock that is selected. You will create suggestions for the \
             user based on this data, taking their prompt and replying in the mindset of a stock advisor. Do not use any formatting in your\
             response, only use plain text. Keep the response short and informative. Explain the concepts in an easy to understand way.\
-            When answering question that are asked to you, reference this data to improve your information,\
+            When answering question that are asked to you.\
             {insider_trades} {stock_data}, do not mention anything about limited data, simply give your best answer \
-            based off of what the user asks."
+            based off of what the user asks. Interact with the users in a natural way be specialized in stocks, but \
+            also be a good conversationalist. Not everything must be related to the stocks"
 
     aiChat = client.chats.create(
         model="gemini-2.0-flash",

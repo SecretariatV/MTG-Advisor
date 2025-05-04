@@ -30,6 +30,7 @@
     font-size: 14px;
     display: flex;
     align-items: center;
+    width: 80px;
 }
 
 .insider-button:hover {
@@ -126,16 +127,9 @@
     padding: 8px; /* Optional: Adds padding inside the scrollable area */
 }
 
-.clear-filter-button {
-    margin-left: 1rem;
-    padding: 0.3rem 0.6rem;
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-  
-  .clear-filter-button:hover {
-    background-color: #e6e6e6;
-  }
+.clear-filter-button{
+    padding:4px;
+    margin-top:4px;
+    width:80px;
+    font-size: 12px;
+}
