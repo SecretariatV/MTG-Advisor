@@ -6,7 +6,7 @@ import ChatLoading from '../chat-loading/chat-loading.component';
 import axios from 'axios';
 
 const ChatContainer = ({ className, insiderTrades, stockData }) => {
-  const [messages, setMessages] = useState([{ sender: 'bot', text: 'Hey, how can I help you?' }]);
+  const [messages, setMessages] = useState([{ sender: 'bot', text: 'Hey I am MTG Advisor, how can I help you?' }]);
   const [loading, setLoading] = useState(false); // Track loading state
   const messagesEndRef = useRef(null);
 
@@ -25,7 +25,7 @@ const ChatContainer = ({ className, insiderTrades, stockData }) => {
     setLoading(true); // Set loading to true
 
     try {
-      const res = await axios.post('http://localhost:5002/gemini', {
+      const res = await axios.post('http://localhost:5000/gemini', {
         message: inputText,
         insiderTrades: insiderTrades,
         stockData: stockData,

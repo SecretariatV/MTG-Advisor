@@ -23,7 +23,7 @@ function App() {
   const fetchRecentStockData = async () => {
     getUniqueTickers();
     try {
-      const res = await axios.post('http://localhost:5001/api/stock-data', {
+      const res = await axios.post('http://localhost:5000/api/stock-data', {
         tickers: selectedSymbol ? [selectedSymbol] : tickers,
       });
       setStockData(res.data);
@@ -35,7 +35,7 @@ function App() {
   const fetchInsiderStockData = async () => {
     getTickers();
     try {
-      const res = await axios.post('http://localhost:5001/api/get-single-stock', {
+      const res = await axios.post('http://localhost:5000/api/get-single-stock', {
         tickers: selectedSymbol ? [selectedSymbol] : tickers,
         dates,
       });
