@@ -6,9 +6,13 @@
   .chat-input-box input {
     flex-grow: 1;
     padding: 0.5rem;
+    border-radius: 1rem 1rem 1rem 1rem;
+    border: 2px solid #4f4949;
   }
   
   .chat-input-box button {
     padding: 0.5rem 1rem;
+    border-radius: 1rem 1rem 1rem 1rem;
+    border: 2px solid #4f4949;
   }
   
