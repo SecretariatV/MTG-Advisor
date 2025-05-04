@@ -1,5 +1,5 @@
 import React from 'react';
-import './stock-item.styles.css'
+import './stock-item.styles.css' 
 
 const StockItem = ({ name, openPrice, closePrice, date }) => {
   

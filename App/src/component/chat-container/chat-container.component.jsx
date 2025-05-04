@@ -4,7 +4,7 @@ import ChatInputBox from '../chat-inputbox/chat-inputbox.component'
 import ChatMessageBox from '../chat-messagebox/chat-messagebox.component'
 import axios from "axios"
 
-const ChatContainer = ( {className}) => {
+const ChatContainer = ( { className } ) => {
     const [messages, setMessages] = useState([]);
     const messagesEndRef = useRef(null);
 
