@@ -1,18 +1,23 @@
 .insider-header-row {
     display: flex;
-    gap: 12px;
+    gap: 24px;
     align-items: center;
     justify-content: center;
     position: sticky; /* Keeps the header at the top */
     top: 0; /* Sticks to the top of the parent container */
-    background-color: #013267; /* Ensures the header has a background */
+    /* background-color: #013267; Ensures the header has a background */
     z-index: 10; /* Ensures the header stays above the scrollable content */
-    padding: 8px 0;
-    border-radius: 3px;
+    padding: 5px 0;
+    border-radius: 2px;
 }
 
 .insider-header {
-    color: #416dfe;
+    color: #2c61e7;
+    text-shadow:
+    -1px -1px 0 rgb(12, 5, 150),
+    1px -1px 0 rgb(12, 5, 150),
+    -1px  1px 0 rgb(12, 5, 150),
+    1px  1px 0 rgb(12, 5, 150);
 }
 
 .insider-button {

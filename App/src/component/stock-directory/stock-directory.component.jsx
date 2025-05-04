@@ -40,7 +40,9 @@ const StockDirectory = ( { className }) => {
     const [stockData, setStockData] = useState([])
     return (
         <div className={ className }>
+          <header className="stock-header">
             <h1>Stock Prices</h1>
+          </header>
             {stockData.map(item => (
                 <StockItem
                 key={item.Ticker + item.Date}
