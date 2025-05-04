@@ -10,6 +10,7 @@
     flex-direction: row;
     margin-top: auto;
     gap:20px;
+    min-height: 50px;
 }
 
 .stock-header {

@@ -7,5 +7,5 @@ button{
     padding: 10px;
     flex: 1;
     font-size: 16px;
-    height: 75px;
+    max-height: 75px;
 }

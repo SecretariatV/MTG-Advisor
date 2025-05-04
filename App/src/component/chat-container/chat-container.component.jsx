@@ -1,11 +1,12 @@
 import './chat-container.styles.css'
-import {useState, useRef, useEffect} from "react"
+import { useState, useRef, useEffect } from "react"
 import ChatInputBox from '../chat-inputbox/chat-inputbox.component'
 import ChatMessageBox from '../chat-messagebox/chat-messagebox.component'
 import axios from "axios"
 
-const ChatContainer = ( { className } ) => {
+const ChatContainer = ({ className, insiderTrades, stockData }) => {
     const [messages, setMessages] = useState([]);
+    const [loading, setLoading] = useState(false); // Track loading state
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
@@ -18,26 +19,33 @@ const ChatContainer = ( { className } ) => {
     const handleSend = async (inputText) => {
         if (!inputText.trim()) return;
 
-        const updatedMessages = [...messages, { sender: 'user', text: inputText}];
+        const updatedMessages = [...messages, { sender: 'user', text: inputText }];
         setMessages(updatedMessages);
+        setLoading(true); // Set loading to true
 
-        try{
-            const res = await axios.post("http://localhost:5002/gemini", { message: inputText});
-            setMessages([...updatedMessages, {sender: "bot", text: res.data.response}]);
-        }
-        catch (err){
-            setMessages([...updatedMessages, {sender: "bot", text: "Error contacting Gemini server."}])
-            console.log(err)
+        try {
+            const res = await axios.post("http://localhost:5002/gemini", {
+                message: inputText,
+                insiderTrades: insiderTrades,
+                stockData: stockData
+            });
+            setMessages([...updatedMessages, { sender: "bot", text: res.data.response }]);
+        } catch (err) {
+            setMessages([...updatedMessages, { sender: "bot", text: "Error contacting Gemini server." }]);
+            console.log(err);
+        } finally {
+            setLoading(false); // Set loading to false after response
         }
     };
 
     return (
         <div className={`chat-container ${className}`}>
-        <header className="chat-header">
-            <h1>Insider Trading Advisor</h1>
-        </header>
-        <ChatMessageBox messages={messages} ref={messagesEndRef}/>
-        <ChatInputBox onSend={handleSend} />
+            <header className="chat-header">
+                <h1>MTG Advisor</h1>
+            </header>
+            <ChatMessageBox messages={messages} ref={messagesEndRef} />
+            {loading && <div className="loading">Generating...</div>} {/* Show loading message */}
+            <ChatInputBox onSend={handleSend} />
         </div>
     );
 };

@@ -110,7 +110,7 @@ function App() {
           func1={fetchRecentStockData}
           func2={fetchInsiderStockData}
         />
-        <ChatContainer className="container" />
+        <ChatContainer className="container" insiderTrades={insiderTrades} stockData={stockData}/>
       </div>
     </>
   );
