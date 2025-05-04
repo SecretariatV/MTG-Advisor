@@ -1,18 +1,25 @@
-.insider-row{
+.insider-row {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 12px;
-    gap:24px;
+    gap: 24px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     margin: 12px;
-    flex:1;
-    min-height:125px;
+    flex: 1;
+    min-height: 125px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
+    will-change: transform, box-shadow; /* Hint to the browser for optimization */
 }
 
+.insider-row:hover {
+    transform: scale(1.05); /* Slightly grow the row */
+    box-shadow: 0 0 40px rgba(129, 129, 202, 0.5); /* Deep blue shadow with more prominence */
+    background-color: rgba(240, 240, 240, 0.2); /* Optional: Light background color */
+}
 
-.cell-container{
+.cell-container {
     display: flex;
     flex-direction: column;
 }
@@ -20,28 +27,27 @@
 #openPrice,
 #closePrice,
 #name,
-#date{
+#date {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-
 #openPrice p,
 #closePrice p,
 #name p,
-#date p{
-    margin:0px;
-    padding:4px;
+#date p {
+    margin: 0px;
+    padding: 4px;
 }
 
 #openPrice h3,
 #closePrice h3,
 #name h3,
-#date h3{
-    margin:0px;
+#date h3 {
+    margin: 0px;
     text-decoration: underline;
     font-style: italic;
     font-size: 16px;
-    padding:4px;
+    padding: 4px;
 }

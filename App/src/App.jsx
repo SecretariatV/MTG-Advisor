@@ -4,6 +4,7 @@ import axios from 'axios';
 import ChatContainer from './component/chat-container/chat-container.component';
 import StockDirectory from './component/stock-directory/stock-directory.component';
 import InsiderDirectory from './component/insider-directory/insider-directory.component';
+import LoadingScreen from './component/loading/loading.component';
 import './App.css';
 
 function App() {
@@ -12,7 +13,10 @@ function App() {
   const [keywords, setKeywords] = useState([]);
   //eslint-disable-next-line
   const [filteredKeywords, setFilteredKeywords] = useState([]);
-  const [selectedSymbol, setSelectedSymbol] = useState(null); // Track the selected symbol
+  const [selectedSymbol, setSelectedSymbol] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [fadeOut, setFadeOut] = useState(false); // Fade-out state
+
   let tickers = [];
   let dates = [];
 
@@ -20,7 +24,7 @@ function App() {
     getUniqueTickers();
     try {
       const res = await axios.post('http://localhost:5001/api/stock-data', {
-        tickers: selectedSymbol ? [selectedSymbol] : tickers, // Use selectedSymbol if available
+        tickers: selectedSymbol ? [selectedSymbol] : tickers,
       });
       setStockData(res.data);
     } catch (err) {
@@ -32,7 +36,7 @@ function App() {
     getTickers();
     try {
       const res = await axios.post('http://localhost:5001/api/get-single-stock', {
-        tickers: selectedSymbol ? [selectedSymbol] : tickers, // Use selectedSymbol if available
+        tickers: selectedSymbol ? [selectedSymbol] : tickers,
         dates,
       });
       setStockData(res.data);
@@ -55,9 +59,6 @@ function App() {
       }
       if (tickers.length === 5) break;
     }
-
-    console.log(tickers);
-    console.log(dates);
   };
 
   const getUniqueTickers = () => {
@@ -92,27 +93,37 @@ function App() {
 
   useEffect(() => {
     getInsiderTrades();
+
+    // Show loading screen for 5 seconds, then fade out
+    const timer = setTimeout(() => {
+      setFadeOut(true); // Trigger fade-out
+      setTimeout(() => setIsLoading(false), 1000); // Wait for fade-out animation to complete
+    }, 4000);
+
+    return () => clearTimeout(timer); // Cleanup the timer
   }, []);
 
+  if (isLoading) {
+    return <div className={`loading-screen ${fadeOut ? 'fade-out' : ''}`}><LoadingScreen /></div>;
+  }
+
   return (
-    <>
-      <div className="parent-container">
-        <InsiderDirectory
-          className="container"
-          insiderTrades={insiderTrades}
-          keywords={keywords}
-          setFilteredKeywords={setFilteredKeywords}
-          setSelectedSymbol={setSelectedSymbol} // Pass the setter for selectedSymbol
-        />
-        <StockDirectory
-          className="container"
-          stockData={stockData}
-          func1={fetchRecentStockData}
-          func2={fetchInsiderStockData}
-        />
-        <ChatContainer className="container" insiderTrades={insiderTrades} stockData={stockData}/>
-      </div>
-    </>
+    <div className={`parent-container ${fadeOut ? 'fade-in' : ''}`}>
+      <InsiderDirectory
+        className="container"
+        insiderTrades={insiderTrades}
+        keywords={keywords}
+        setFilteredKeywords={setFilteredKeywords}
+        setSelectedSymbol={setSelectedSymbol}
+      />
+      <StockDirectory
+        className="container"
+        stockData={stockData}
+        func1={fetchRecentStockData}
+        func2={fetchInsiderStockData}
+      />
+      <ChatContainer className="container" insiderTrades={insiderTrades} stockData={stockData} />
+    </div>
   );
 }
 
