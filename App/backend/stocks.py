@@ -62,13 +62,13 @@ def getSingle():
     for i in range(len(dates)):
         dt = datetime.strptime(dates[i], "%m/%d/%Y")
         dates[i] = dt.date().isoformat()  # Use .date() to remove the time portion
-        print(dates[i])  # Debugging: Print the formatted date
+        # print(dates[i])  # Debugging: Print the formatted date
 
     # Fetch data for each ticker and date
     for ticker, date in zip(tickers, dates):
         try:
             bars = client.get_aggs(ticker, 1, "day", date, date)
-            print(f"Bars for {ticker} on {date}: {bars}")  # Debugging: Print the bars
+            # print(f"Bars for {ticker} on {date}: {bars}")  # Debugging: Print the bars
             if bars:
                 bar = bars[0]
                 results.append({

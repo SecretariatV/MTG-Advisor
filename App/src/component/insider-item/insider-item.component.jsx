@@ -3,7 +3,7 @@ import './insider-item.styles.css'
 const InsiderItem = ( { reporter, symbol,  value, date } ) => {
 
     return (
-        <div className="row">
+        <div className="row2">
             <div className='cell' id='name'>
                 <h3>Reporter</h3>
                 <p>{reporter}</p>
