@@ -1,5 +1,7 @@
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
+// To use this run this command: npm install @lottiefiles/dotlottie-react
+
 const LoadingScreen = () => {
     return (
         <DotLottieReact
