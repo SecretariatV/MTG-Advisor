@@ -19,22 +19,7 @@
   }
 
 .loading {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #2c61e7;
-    animation: pulse 1.5s infinite;
-    margin-top: 1rem;
-    padding: 30px;
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0.3;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0.3;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
