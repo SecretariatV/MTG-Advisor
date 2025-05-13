@@ -1,22 +1,55 @@
-## Inspiration
-The economy is in crisis mode currently. Tariffs are impeding the economy, causing unpredictable behaviour in the stock market. We decided we need to know how we can better understand and predict where stocks are going to move in the future. What's the best way to do this? Look at the insiders! MTG Advisor was made for us to help manage our finances better during a time of great turmoil in the economy, in hopes of saving some money.
-## What it does
-MTG Advisor is your AI Parent that helps you analyze the most recently filed insider trades made by US senators.  By comparing live and historical stock data from the dates of the insider trades, MTG Advisor can cross-reference the data to create meaningful predictions and give important insights into how the specific stocks could move. MTG Advisor can also act as a general financial advisor and give you advice on how to best invest your money. 
-## How we built it
-MTG Advisor is built almost entirely out of React and Flask. React manages our interactive frontend while Flask handles all of our Api calls. We utilized Vite to get our template for a fast scaffolding to get to work quickly.
-## Challenges we ran into
-The biggest challenge we ran into was collaboration. This is a challenge we did not expect to run into, however, we quickly realized we have no idea how to use Git to collaborate. Throughout the entire project, we struggled with this and were continually resolving errors with it. We still probably don't know how to use git.
+# 📈 MTG Advisor – AI-Powered Insider Trade Insights
 
-We also encountered many problems in the backend. This was some of our first time using these new API's, and reading documentation and figuring out how they work and connect was difficult and time-consuming. It then became even harder to synchronize all the data between our 3 API's to communicate the data between them. This took most of our time.
+## 💡 Inspiration
 
-We also struggled working with React. This was our first time building a proper project in React, so there was a lot of learning going on as we were building, and we encountered many errors while developing our frontend (especially the CSS).
-## Accomplishments that we're proud of
-The biggest accomplishment is that our application functions! We had our concerns about whether we were going to be able to get a working project, and we did; it even looks fairly polished (which is surprising).
+With the economy in crisis, rising tariffs, and increased volatility in the stock market, I wanted to find a smarter way to understand and predict market behavior. The solution? Look at the insiders. **MTG Advisor** was built to analyze financial activity from U.S. senators and translate that information into meaningful investment insights. The goal: better decisions during uncertain times.
 
-We are proud that we were able to work together as a team and make this functioning app. We each worked on one part of the core functionality of the site, and being able to bind it together into an app was a big accomplishment for us.
-## What we learned
-We learned a lot throughout this project. Our React skills improved significantly, and we became much better at creating good-looking frontends. We also learned a lot about Flask. Due to its simplicity, we are now able to use it outside of this project comfortably. 
+## 🚀 What It Does
 
-The biggest thing we learned from this project is the importance of planning and collaboration. Throughout development, we found ourselves often referencing our plans and sketching designs on paper as a group. Our development was streamlined through our collaboration, as we helped each other debug and teach each other about the frameworks and languages as we used them. 
-## What's next for MTG Advisor
-MTG Advisor can still be improved significantly. Hopefully, in the future, we can improve our UI, improve our AI bot, and primarily access a larger database for insider trades. If we can get more information on the trades and more historical stock data, we could create a much better analyzer of the stocks and insider trades. The future looks bright for MTG Advisor!
+**MTG Advisor** is an AI-powered tool that analyzes the latest insider trades filed by U.S. senators. By comparing live and historical stock data, the app identifies patterns and offers predictions on potential stock movements. Beyond that, it acts as a general financial advisor—offering tailored suggestions on how to invest based on current market data.
+
+## 🛠️ How I Built It
+
+* **Frontend:** Built with React using Vite for rapid development and a fast setup
+* **Backend:** Powered by Flask to manage API calls and data orchestration
+* **Data Sources:** Utilizes three APIs to fetch, compare, and analyze insider trade and stock data in real time
+
+## 🧩 Challenges I Faced
+
+* **Git Collaboration:** This project highlighted the steep learning curve around proper Git workflows, especially while collaborating
+* **Backend Complexity:** Integrating and synchronizing data from multiple APIs required deep documentation work and debugging
+* **React & CSS:** As my first large-scale React project, I learned a lot about component structure, state management, and styling
+
+## ✅ Accomplishments
+
+* Delivered a functioning and polished full-stack application
+* Integrated live data from multiple sources and built meaningful visualizations
+* Successfully distributed and integrated core features across the app
+
+## 📚 What I Learned
+
+* React development and UI/UX design principles
+* Flask API development and data handling
+* Importance of planning, sketching wireframes, and collaborative problem-solving
+
+## 🔮 What’s Next
+
+Planned future improvements:
+
+* Enhance UI design for a smoother user experience
+* Expand the AI's analysis capabilities
+* Integrate a broader dataset for more accurate predictions
+
+## 🖼️ Screenshots
+
+<p align="center">
+  <img src="screenshot.png" alt="Dashboard Screenshot" width="700"/>
+</p>
+
+---
+
+## 📬 Contact
+
+* GitHub: [@SecretariatV](https://github.com/SecretariatV)
+* Email: [oliver.b25.f@gmail.com](mailto:oliver.b25.f@gmail.com)
+* Telegram: [@ares\_orb](https://t.me/ares_orb)
